@@ -43,6 +43,8 @@ jobs:
       - name: Build and push Docker
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           file: 'Dockerfile'
           platforms: linux/amd64,linux/arm64
           context: ./
@@ -50,4 +52,3 @@ jobs:
           tags: |
             ghcr.io/jiz4oh/efb:latest
             ghcr.io/jiz4oh/efb:${{ env.version }}
-

@@ -15,7 +15,8 @@ RUN apk add --no-cache tzdata ca-certificates \
        tiff libwebp freetype lcms2 openjpeg py3-olefile openblas \
        py3-numpy py3-pillow py3-cryptography py3-decorator cairo py3-pip
 RUN apk add --no-cache --virtual .build-deps git build-base gcc python3-dev \
-    && pip3 install pysocks ehforwarderbot efb-telegram-master --break-system-packages \
+    && pip3 install pysocks ehforwarderbot --break-system-packages \
+    && pip3 install git+https://github.com/jiz4oh/efb-telegram-master.git; \
     && pip3 install git+https://github.com/Ovler-Young/efb-wechat-slave.git --break-system-packages \
     && apk del .build-deps
 

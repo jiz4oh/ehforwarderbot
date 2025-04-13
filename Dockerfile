@@ -1,3 +1,42 @@
+# Stage 1: Builder stage - Install build dependencies and Python packages
+FROM python:3.11-alpine AS builder
+
+ENV LANG C.UTF-8
+ENV TZ 'Asia/Shanghai'
+
+# Install build-time dependencies for apk packages and pip packages
+RUN set -ex; \
+    apk add --no-cache --update \
+        python3-dev \
+        py3-pillow \
+        py3-ruamel.yaml \
+        git \
+        gcc \
+        musl-dev \
+        zlib-dev \
+        jpeg-dev \
+        libffi-dev \
+        openssl-dev \
+        libwebp-dev \
+        zbar-dev; \
+    # Install python packages using pip with --no-cache-dir
+    pip3 install --no-cache-dir urllib3==1.26.15; \
+    # Install/reinstall rich and Pillow from pip (as per original Dockerfile intent)
+    # Note: Pillow might be installed via apk (py3-pillow) and pip, pip version will likely take precedence.
+    pip3 install --no-cache-dir --no-deps --force-reinstall rich Pillow; \
+    # Install TgCrypto, ignoring any pre-installed PyYAML
+    pip3 install --no-cache-dir --ignore-installed PyYAML TgCrypto; \
+    \
+    # Install other Python dependencies from git and PyPI
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git; \
+    pip3 install --no-cache-dir ehforwarderbot python-telegram-bot; \
+    pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git; \
+    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb-keyword-reply.git; \
+    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb_message_merge.git; \
+    pip3 install --no-cache-dir pyqrcode;
+
+# Stage 2: Final stage - Install only runtime dependencies and copy artifacts
 FROM python:3.11-alpine
 
 ENV LANG C.UTF-8
@@ -7,36 +46,42 @@ ENV EFB_PARAMS ""
 ENV EFB_PROFILE "default"
 ENV HTTPS_PROXY ""
 
+# Set timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone
+    && echo "Asia/Shanghai" > /etc/timezone;
 
-RUN apk add --no-cache tzdata ca-certificates \
-       gifsicle ffmpeg libmagic python3 \
-       tiff libwebp freetype lcms2 openjpeg py3-olefile openblas \
-       py3-numpy py3-pillow py3-cryptography py3-decorator cairo py3-pip
-RUN apk add --no-cache --virtual .build-deps git build-base gcc python3-dev \
-    && pip3 install pysocks ehforwarderbot --break-system-packages \
-    && pip3 install git+https://github.com/jiz4oh/efb-telegram-master.git \
-    && pip3 install git+https://github.com/Ovler-Young/efb-wechat-slave.git --break-system-packages \
-    && apk del .build-deps
-
-#{{{comwechat
+# Install runtime C-library dependencies including cron and necessary libs for python packages
 RUN set -ex; \
-    apk --update upgrade; \
-    apk --update add --no-cache python3-dev py3-pillow py3-ruamel.yaml libmagic ffmpeg git gcc zlib-dev jpeg-dev musl-dev libffi-dev openssl-dev libwebp-dev zbar-dev
+    apk add --no-cache --update \
+        libmagic \
+        ffmpeg \
+        zlib \
+        jpeg \
+        libffi \
+        py3-pillow \
+        zbar \
+        openssl \
+        libwebp \
+        cronie \
+        py3-ruamel.yaml; \
+    # Clean up apk cache
+    rm -rf /var/cache/apk/*;
 
-RUN pip3 install urllib3==1.26.15; \
-    pip3 install --no-deps --force-reinstall rich Pillow; \
-    pip3 install --ignore-installed PyYAML TgCrypto;
+# Explicitly tell the dynamic linker where to find shared libraries like libzbar.so
+ENV LD_LIBRARY_PATH="/usr/lib:${LD_LIBRARY_PATH}"
 
-RUN pip3 install git+https://github.com/jiz4oh/efb-telegram-master.git; \
-    pip3 install ehforwarderbot python-telegram-bot; \
-    pip3 install git+https://github.com/0honus0/python-comwechatrobot-http.git; \
-    pip3 install git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git; \
-    pip3 install git+https://github.com/QQ-War/efb-keyword-reply.git; \
-    pip3 install git+https://github.com/QQ-War/efb_message_merge.git;
-#}}}
+# Copy installed python packages from builder stage's site-packages
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+# Copy executables installed by pip packages
+COPY --from=builder /usr/local/bin/ehforwarderbot /usr/local/bin/ehforwarderbot
 
+# Patch pyzbar to directly load the library from the known path in Alpine
+# This avoids issues with find_library in minimal environments
+RUN sed -i "s|path = find_library('zbar')|path = '/usr/lib/libzbar.so.0' # find_library('zbar')|" \
+        /usr/local/lib/python3.11/site-packages/pyzbar/zbar_library.py
+
+# Copy entrypoint script and make it executable
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

@@ -1,7 +1,7 @@
-token: "机器人的 TOKEN"
+token: "机器人的 TOKEN" # 必须修改，可参考 https://winamp.eu.org/266.html
 admins:
-- 你自己的 Userid
-flags:
+- 你自己的 Userid # 必须修改，可参考 https://winamp.eu.org/266.html
+flags: # 可选 flag，详见 https://github.com/ehForwarderBot/efb-telegram-master?tab=readme-ov-file#experimental-flags
     # 关闭自动语言设置，使用 systemd 启动时默认中文
     auto_locale: false
     animated_stickers: true

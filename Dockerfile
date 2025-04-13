@@ -28,7 +28,7 @@ RUN pip3 install urllib3==1.26.15; \
     pip3 install --no-deps --force-reinstall rich Pillow; \
     pip3 install --ignore-installed PyYAML TgCrypto;
 
-RUN pip3 install git+https://github.com/QQ-War/efb-telegram-master.git; \
+RUN pip3 install git+https://github.com/jiz4oh/efb-telegram-master.git; \
     pip3 install ehforwarderbot python-telegram-bot; \
     pip3 install git+https://github.com/0honus0/python-comwechatrobot-http.git; \
     pip3 install git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git; \

@@ -5,3 +5,4 @@ flags: # 可选 flag，详见 https://github.com/ehForwarderBot/efb-telegram-mas
     # 关闭自动语言设置，使用 systemd 启动时默认中文
     auto_locale: false
     animated_stickers: true
+    # topic_group: -100xxxxxx # 开启 topic_group 所用，参考 https://www.jiz4oh.com/2025/04/set-topic-in-efb

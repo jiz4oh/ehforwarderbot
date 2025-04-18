@@ -28,13 +28,12 @@ RUN set -ex; \
     pip3 install --no-cache-dir --ignore-installed PyYAML TgCrypto; \
     \
     # Install other Python dependencies from git and PyPI
-    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git; \
-    pip3 install --no-cache-dir ehforwarderbot python-telegram-bot; \
-    pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git; \
-    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git; \
-    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb-keyword-reply.git; \
-    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb_message_merge.git; \
-    pip3 install --no-cache-dir pyqrcode;
+    pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@9e4f88e9a9f3621307d7337a6201f4b637fbafb2; \
+    pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git@50e509f4ec3e11df7e4e5ab252a26ffef9a4470a; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git@734bd5763a42e7563d6f004b2d1515f5fb773cdd; \
+    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb-keyword-reply.git@c7dfef513e85d6647ad78c70b4e3353ab8804977; \
+    pip3 install --no-cache-dir git+https://github.com/QQ-War/efb_message_merge.git@946837e5508bf9325060f15f2a725525baf368ff;
 
 # Stage 2: Final stage - Install only runtime dependencies and copy artifacts
 FROM python:3.11-alpine

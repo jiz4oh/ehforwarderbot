@@ -6,6 +6,7 @@ services:
     volumes:
       - .:/data
       - "./comwechat/Files/:/comwechat/Files/"
+      - "./cleanup.sh:/etc/periodic/daily/cleanup.sh"
     restart: unless-stopped
     network_mode: "service:comwechat"
     environment:
@@ -34,6 +35,7 @@ services:
     volumes:
       - .:/data
       - "./comwechat/efb2/Files/:/comwechat/Files/"
+      - "./cleanup.sh:/etc/periodic/daily/cleanup.sh"
     restart: unless-stopped
     network_mode: "service:comwechat2"
     environment:

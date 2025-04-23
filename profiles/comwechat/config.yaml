@@ -4,3 +4,4 @@ slave_channels:
 middlewares:
 - QQ_War.keyword_reply
 - QQ_War.message_merge
+# - catbaron.mp_instantview

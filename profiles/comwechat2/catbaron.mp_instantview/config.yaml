@@ -1,0 +1,9 @@
+# Token of telegraph
+telegraph_token: 必填  # 参考 https://telegra.ph/api#createAccount
+
+# Optional. Proxy url.
+# Example:
+#  proxy_url: socks5://<user>:<pass>@<host>:<port>
+#  proxy_url: socks5://<host>:<port>
+#  proxy_url: http://<host>:<port>
+# proxy_url: PROXY_URL

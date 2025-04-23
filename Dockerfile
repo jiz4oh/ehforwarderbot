@@ -29,6 +29,7 @@ RUN set -ex; \
     \
     # Install other Python dependencies from git and PyPI
     pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
+    pip3 install --no-cache-dir efb-mp-instantview-middleware; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@9e4f88e9a9f3621307d7337a6201f4b637fbafb2; \
     pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git@50e509f4ec3e11df7e4e5ab252a26ffef9a4470a; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git@734bd5763a42e7563d6f004b2d1515f5fb773cdd; \

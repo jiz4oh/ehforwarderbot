@@ -18,17 +18,17 @@ RUN set -ex; \
         libffi-dev \
         openssl-dev \
         libwebp-dev \
-        zbar-dev; \
+        zbar-dev;
     # Install python packages using pip with --no-cache-dir
-    pip3 install --no-cache-dir urllib3==1.26.15; \
+RUN pip3 install --no-cache-dir urllib3==1.26.15; \
     # Install/reinstall rich and Pillow from pip (as per original Dockerfile intent)
     # Note: Pillow might be installed via apk (py3-pillow) and pip, pip version will likely take precedence.
     pip3 install --no-cache-dir --no-deps --force-reinstall rich Pillow; \
     # Install TgCrypto, ignoring any pre-installed PyYAML
-    pip3 install --no-cache-dir --ignore-installed PyYAML TgCrypto; \
-    \
+    pip3 install --no-cache-dir --ignore-installed PyYAML TgCrypto;
+
     # Install other Python dependencies from git and PyPI
-    pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
+RUN pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
     pip3 install --no-cache-dir efb-mp-instantview-middleware; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-keyword-replace.git@324b96fece78de14f410a01f95a57e61b43c41d2; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@9e4f88e9a9f3621307d7337a6201f4b637fbafb2; \

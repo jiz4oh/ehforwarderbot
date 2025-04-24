@@ -29,7 +29,7 @@ RUN pip3 install --no-cache-dir urllib3==1.26.15; \
 
     # Install other Python dependencies from git and PyPI
 RUN pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
-    pip3 install --no-cache-dir efb-mp-instantview-middleware; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-mp-instantview-middleware.git@e7772cc2c5acc5b776f4bc0bc7562ea5b893eab9; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-keyword-replace.git@324b96fece78de14f410a01f95a57e61b43c41d2; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@9e4f88e9a9f3621307d7337a6201f4b637fbafb2; \
     pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git@50e509f4ec3e11df7e4e5ab252a26ffef9a4470a; \

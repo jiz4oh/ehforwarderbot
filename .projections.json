@@ -1,0 +1,8 @@
+{
+  "log/**/*.log": {
+    "type": "log"
+  },
+  "profiles/*/config.yaml": {
+    "type": "config"
+  }
+}

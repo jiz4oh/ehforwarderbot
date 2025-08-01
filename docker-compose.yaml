@@ -19,14 +19,17 @@ services:
   comwechat:
     environment:
         - VNCPASS=jiz4oh
-        - COMWECHAT=https://github.com/ljc545w/ComWeChatRobot/releases/download/3.7.0.30-0.1.0-pre/3.7.0.30-0.1.0-pre.zip
+        - COMWECHAT=https://github.com/ljc545w/ComWeChatRobot/releases/download/3.7.0.30-0.1.1-pre/3.7.0.30-0.1.1-pre.zip
     volumes:
         - "./comwechat/Files/:/home/user/.wine/drive_c/users/user/My Documents/WeChat Files/"
         # - "./comwechat/Data/:/home/user/.wine/drive_c/users/user/Application Data/"
         - ./run2.py:/run2.py
+    ports:
+      - 5905:5905
     command: /run2.py
     privileged: true
     network_mode: bridge
+    hostname: efb
     restart: unless-stopped
     image: tomsnow1999/docker-com_wechat_robot:latest
 
@@ -48,13 +51,16 @@ services:
   comwechat2:
     environment:
         - VNCPASS=jiz4oh
-        - COMWECHAT=https://github.com/ljc545w/ComWeChatRobot/releases/download/3.7.0.30-0.1.0-pre/3.7.0.30-0.1.0-pre.zip
+        - COMWECHAT=https://github.com/ljc545w/ComWeChatRobot/releases/download/3.7.0.30-0.1.1-pre/3.7.0.30-0.1.1-pre.zip
     volumes:
         - "./comwechat/efb2/Files/:/home/user/.wine/drive_c/users/user/My Documents/WeChat Files/"
         # - "./comwechat/Data/:/home/user/.wine/drive_c/users/user/Application Data/"
         - ./run2.py:/run2.py
+    ports:
+      - 5906:5905
     command: /run2.py
     privileged: true
     network_mode: bridge
+    hostname: efb2
     restart: unless-stopped
     image: tomsnow1999/docker-com_wechat_robot:latest

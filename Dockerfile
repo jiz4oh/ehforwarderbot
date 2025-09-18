@@ -31,9 +31,9 @@ RUN pip3 install --no-cache-dir urllib3==1.26.15; \
 RUN pip3 install --no-cache-dir ehforwarderbot python-telegram-bot pyqrcode; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-mp-instantview-middleware.git@e7772cc2c5acc5b776f4bc0bc7562ea5b893eab9; \
     pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-keyword-replace.git@ede3f2ede8092017d7005f9b2150d6325076c852; \
-    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@ff807c5c72a7d4164e768d02b97abaf687f58c7d; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-telegram-master.git@b97d9da6aa4303cd167d0060a1d31b30bdd911b9; \
     pip3 install --no-cache-dir git+https://github.com/0honus0/python-comwechatrobot-http.git@50e509f4ec3e11df7e4e5ab252a26ffef9a4470a; \
-    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git@124c5cc127713608877c8ed68b9f50af4d37eec7; \
+    pip3 install --no-cache-dir git+https://github.com/jiz4oh/efb-wechat-comwechat-slave.git@382e8e3c1f56ba23b60d9a70ff15fe05f80cb8fe; \
     pip3 install --no-cache-dir git+https://github.com/QQ-War/efb-keyword-reply.git@c7dfef513e85d6647ad78c70b4e3353ab8804977; \
     pip3 install --no-cache-dir git+https://github.com/QQ-War/efb_message_merge.git@946837e5508bf9325060f15f2a725525baf368ff;
 

@@ -9,3 +9,4 @@
 find /comwechat/Files/wxid_* -maxdepth 1 -type f -mtime +0 -delete
 find /comwechat/Files/wxid_*/FileStorage/Cache -type f -mtime +0 -delete
 find /comwechat/Files/wxid_*/FileStorage/Sns/Cache -type f -mtime +0 -delete
+find /comwechat/Files/wxid_*/FileStorage/MsgAttach -type f -mtime +0 -delete

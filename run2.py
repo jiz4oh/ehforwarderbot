@@ -13,18 +13,8 @@ class DockerWechatHook:
         self.exit_container()
 
     def prepare(self):
-        # if not os.path.exists("/comwechat/http/SWeChatRobot.dll"):
-        if not os.path.exists("/dll_downloaded.txt"):
-            COMWECHAT = os.environ['COMWECHAT']
-            # NOTE: 当 ComWeChatRobot 的仓库地址变动的话需要修改
-            if not COMWECHAT.startswith("https://github.com/ljc545w/ComWeChatRobot/releases/download/"):
-                print("你提供的地址不是 COMWECHAT 仓库的 Release 下载地址，程序将自动退出！", flush=True)
-                self.exit_container()
-            self.prepare = subprocess.run(['wget', COMWECHAT, '-O', 'comwechat.zip'])
-            self.prepare = subprocess.run(['unzip', '-d', 'comwechat', 'comwechat.zip'])
-            self.prepare = subprocess.run(['mv', '/WeChatHook.exe', '/comwechat/http/WeChatHook.exe'])
-            with open("/dll_downloaded.txt", "w") as f:
-                f.write("True\n")
+        self.prepare = subprocess.run(['unzip', '-d', 'comwechat', 'comwechat.zip'])
+        self.prepare = subprocess.run(['mv', '/WeChatHook.exe', '/comwechat/http/WeChatHook.exe'])
 
     def run_vnc(self):
         # 根据 VNCPASS 环境变量生成 vncpasswd 文件

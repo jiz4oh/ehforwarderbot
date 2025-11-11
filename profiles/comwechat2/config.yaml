@@ -6,3 +6,4 @@ middlewares:
 - QQ_War.message_merge
 - jiz4oh.keyword_replace
 # - catbaron.mp_instantview
+- jiz4oh.map

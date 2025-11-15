@@ -17,8 +17,7 @@ RUN set -ex; \
         jpeg-dev \
         libffi-dev \
         openssl-dev \
-        libwebp-dev \
-        zbar-dev;
+        libwebp-dev;
     # Install python packages using pip with --no-cache-dir
 RUN pip3 install --no-cache-dir urllib3==1.26.15; \
     # Install/reinstall rich and Pillow from pip (as per original Dockerfile intent)
@@ -61,7 +60,6 @@ RUN set -ex; \
         jpeg \
         libffi \
         py3-pillow \
-        zbar \
         openssl \
         libwebp \
         cronie \
@@ -69,18 +67,10 @@ RUN set -ex; \
     # Clean up apk cache
     rm -rf /var/cache/apk/*;
 
-# Explicitly tell the dynamic linker where to find shared libraries like libzbar.so
-ENV LD_LIBRARY_PATH="/usr/lib:${LD_LIBRARY_PATH}"
-
 # Copy installed python packages from builder stage's site-packages
 COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 # Copy executables installed by pip packages
 COPY --from=builder /usr/local/bin/ehforwarderbot /usr/local/bin/ehforwarderbot
-
-# Patch pyzbar to directly load the library from the known path in Alpine
-# This avoids issues with find_library in minimal environments
-RUN sed -i "s|path = find_library('zbar')|path = '/usr/lib/libzbar.so.0' # find_library('zbar')|" \
-        /usr/local/lib/python3.11/site-packages/pyzbar/zbar_library.py
 
 # Copy entrypoint script and make it executable
 COPY entrypoint.sh /entrypoint.sh

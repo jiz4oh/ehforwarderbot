@@ -9,6 +9,7 @@ COPY constraints.lock /tmp/constraints.lock
 
 # Install build-time dependencies for apk packages and pip packages
 RUN set -ex; \
+    apk upgrade --no-cache; \
     apk add --no-cache --update \
         python3-dev \
         py3-pillow \
@@ -74,6 +75,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 # Install runtime C-library dependencies including cron and necessary libs for python packages
 RUN set -ex; \
+    apk upgrade --no-cache; \
     apk add --no-cache --update \
         libmagic \
         cairo \

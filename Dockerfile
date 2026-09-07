@@ -9,6 +9,7 @@ COPY constraints.lock /tmp/constraints.lock
 
 # Install build-time dependencies for apk packages and pip packages
 RUN set -ex; \
+    apk upgrade --no-cache; \
     apk add --no-cache --update \
         python3-dev \
         py3-pillow \
@@ -40,7 +41,7 @@ RUN set -e; pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+h
 # Keep stable dependencies reusable when a channel changes.
 RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/python-comwechatrobot-http.git@687e2374dab5aa04c136c173d511ac8a8c89dbb5
 RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-wechat-comwechat-slave.git@0fb6199ae06812ec703e7dcbb4802fc30bbf0660
-RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-telegram-master.git@a715ff017d9ab0985bd510e6545e4186118c12da
+RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-telegram-master.git@64cbe34c373a86985318ef8a6c9831feea067425
 RUN pip3 check
 
 # Stage 2: Final stage - Install only runtime dependencies and copy artifacts
@@ -54,9 +55,9 @@ ENV TZ 'Asia/Shanghai'
 ENV EFB_DATA_PATH /data/
 ENV EFB_PARAMS ""
 ENV EFB_PROFILE "default"
-ENV EFB_IMAGE_REVISION "a715ff0-0fb6199-http687e237-mw-abed7e6-51f360e-bridge-13d443a-watchdog-edde14a"
+ENV EFB_IMAGE_REVISION "64cbe34-0fb6199-http687e237-mw-abed7e6-51f360e-bridge-13d443a-watchdog-edde14a"
 ENV EFB_CORE_REVISION "${EFB_IMAGE_SOURCE_REF}"
-ENV EFB_TELEGRAM_MASTER_REVISION "a715ff017d9ab0985bd510e6545e4186118c12da"
+ENV EFB_TELEGRAM_MASTER_REVISION "64cbe34c373a86985318ef8a6c9831feea067425"
 ENV EFB_COMWECHAT_SLAVE_REVISION "0fb6199ae06812ec703e7dcbb4802fc30bbf0660"
 ENV EFB_COMWECHAT_HTTP_REVISION "687e2374dab5aa04c136c173d511ac8a8c89dbb5"
 ENV EFB_IMAGE_BUILD_TIME "${EFB_IMAGE_BUILD_TIME}"
@@ -74,6 +75,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 # Install runtime C-library dependencies including cron and necessary libs for python packages
 RUN set -ex; \
+    apk upgrade --no-cache; \
     apk add --no-cache --update \
         libmagic \
         cairo \

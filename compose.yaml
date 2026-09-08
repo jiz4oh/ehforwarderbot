@@ -89,8 +89,8 @@ services:
       TGSOCKS_PROXY_HOST: ${TGSOCKS_PROXY_HOST:-127.0.0.1}
       TGSOCKS_PROXY_PORT: ${TGSOCKS_PROXY_PORT:-7890}
     volumes:
-      - .:/data
-      - ${COMWECHAT_FILES_DIR:-./comwechat/Files}:/comwechat/Files/
+      - ${COMWECHAT_FILES_DIR:-./comwechat/Files}:/data/comwechat/Files/
+      - ${COMWECHAT2_FILES_DIR:-./comwechat/efb2/Files}:/data/comwechat/efb2/Files
       - efb_tmp:/tmp
       - telegram_bot_api_data:/var/lib/telegram-bot-api
     command:

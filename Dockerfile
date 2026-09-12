@@ -40,8 +40,8 @@ RUN set -e; pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+h
 
 # Keep stable dependencies reusable when a channel changes.
 RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/python-comwechatrobot-http.git@687e2374dab5aa04c136c173d511ac8a8c89dbb5
-RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-wechat-comwechat-slave.git@0fb6199ae06812ec703e7dcbb4802fc30bbf0660
-RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-telegram-master.git@a6fdebf5f44fda9d738fa6a210e1a3f0477cddf5
+RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-wechat-comwechat-slave.git@573a9eae37fd819f6f9f41c733bf43ca909f84b2
+RUN pip3 install --no-cache-dir --constraint /tmp/constraints.lock git+https://github.com/shaoyou11/efb-telegram-master.git@4414fd159d2ab21f03095774715718c75b01752e
 RUN pip3 check
 
 # Stage 2: Final stage - Install only runtime dependencies and copy artifacts
@@ -55,10 +55,10 @@ ENV TZ 'Asia/Shanghai'
 ENV EFB_DATA_PATH /data/
 ENV EFB_PARAMS ""
 ENV EFB_PROFILE "default"
-ENV EFB_IMAGE_REVISION "a6fdebf-0fb6199-http687e237-mw-abed7e6-51f360e-bridge-13d443a-watchdog-edde14a"
+ENV EFB_IMAGE_REVISION "4414fd1-573a9ea-http687e237-mw-abed7e6-51f360e-bridge-13d443a-watchdog-edde14a"
 ENV EFB_CORE_REVISION "${EFB_IMAGE_SOURCE_REF}"
-ENV EFB_TELEGRAM_MASTER_REVISION "a6fdebf5f44fda9d738fa6a210e1a3f0477cddf5"
-ENV EFB_COMWECHAT_SLAVE_REVISION "0fb6199ae06812ec703e7dcbb4802fc30bbf0660"
+ENV EFB_TELEGRAM_MASTER_REVISION "4414fd159d2ab21f03095774715718c75b01752e"
+ENV EFB_COMWECHAT_SLAVE_REVISION "573a9eae37fd819f6f9f41c733bf43ca909f84b2"
 ENV EFB_COMWECHAT_HTTP_REVISION "687e2374dab5aa04c136c173d511ac8a8c89dbb5"
 ENV EFB_IMAGE_BUILD_TIME "${EFB_IMAGE_BUILD_TIME}"
 ENV EFB_IMAGE_SOURCE_REF "${EFB_IMAGE_SOURCE_REF}"
